@@ -1,18 +1,19 @@
 package hh.forest_of_habits.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
-public class ErrorDto {
-    private int status;
+public class ErrorDTO {
+    private int code;
     private String message;
-    private Date timestamp;
-
-    public ErrorDto(int status, String message) {
-        this.status = status;
-        this.message = message;
-        this.timestamp = new Date();
-    }
+    @Builder.Default
+    private LocalDateTime timestamp = LocalDateTime.now();
 }

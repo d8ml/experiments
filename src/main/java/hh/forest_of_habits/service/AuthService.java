@@ -2,10 +2,11 @@ package hh.forest_of_habits.service;
 
 import hh.forest_of_habits.dto.AuthRequest;
 import hh.forest_of_habits.dto.AuthResponse;
-import hh.forest_of_habits.dto.ErrorDto;
+import hh.forest_of_habits.dto.ErrorDTO;
 import hh.forest_of_habits.dto.RegistrationRequest;
 import hh.forest_of_habits.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,9 +40,10 @@ public class AuthService {
             ));
         } catch (BadCredentialsException exception) {
             return new ResponseEntity<>(
-                    new ErrorDto(
+                    new ErrorDTO(
                             HttpStatus.UNAUTHORIZED.value(),
-                            "Неверный логин или пароль"
+                            "Неверный логин или пароль",
+                            LocalDateTime.now()
                     ),
                     HttpStatus.UNAUTHORIZED);
         }
@@ -50,9 +54,10 @@ public class AuthService {
     public ResponseEntity<?> registration(@RequestBody RegistrationRequest request) {
 
         if (userService.findByName(request.getUsername()).isPresent()) {
-            return new ResponseEntity<>(new ErrorDto(
+            return new ResponseEntity<>(new ErrorDTO(
                     HttpStatus.BAD_REQUEST.value(),
-                    "Пользователь уже существует"),
+                    "Пользователь уже существует",
+                    LocalDateTime.now()),
                     HttpStatus.BAD_REQUEST
             );
         }
