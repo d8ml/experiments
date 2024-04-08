@@ -15,7 +15,7 @@ fi
 
 docker run -d --rm -p 8097:8080 --name $CONTAINER_NAME d8ml/forest_of_habits
 
-exit
+~.
 ENDSSH
 
 if [ $? -eq 0 ]; then
