@@ -6,15 +6,15 @@ ssh -p ${SERVER_PORT} ${SERVER_USER}@${SERVER_HOST} -i key.txt -t -t -o StrictHo
 sudo docker pull d8ml/forest_of_habits
 
 CONTAINER_NAME=forest_of_habits
-if [ "$(docker ps -qa -f name=$CONTAINER_NAME)" ]; then
-    if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
+if [ "$(sudo docker ps -qa -f name=$CONTAINER_NAME)" ]; then
+    if [ "$(sudo docker ps -q -f name=$CONTAINER_NAME)" ]; then
         echo "Container is running -> stopping it..."
-        docker stop $CONTAINER_NAME;
+        sudo docker stop $CONTAINER_NAME;
     fi
 fi
 
 cd docker/
-docker compose up -d
+sudo docker compose up -d
 
 exit
 ENDSSH
