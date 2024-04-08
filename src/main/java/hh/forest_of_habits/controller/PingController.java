@@ -8,6 +8,6 @@ public class PingController {
 
     @GetMapping("/ping")
     public String index() {
-        return "pong11";
+        return "pong22";
     }
 }
